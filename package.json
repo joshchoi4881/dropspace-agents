@@ -1,0 +1,16 @@
+{
+  "name": "dropspace-agent",
+  "version": "1.0.0",
+  "description": "Autonomous content automation pipeline for Dropspace — self-improving multi-platform social media engine",
+  "private": true,
+  "dependencies": {},
+  "optionalDependencies": {
+    "canvas": "^3.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "postinstall": "node -e \"try{require('canvas');console.log('✅ canvas installed — visual formats enabled')}catch{console.log('⚠️  canvas not installed — text-only formats available. Install system deps and retry: npm install canvas')}\""
+  }
+}
