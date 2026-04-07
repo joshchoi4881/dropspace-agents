@@ -272,7 +272,7 @@ function buildCta(platformConfig, appConfig, platform) {
 
 // ── Timeout Constants ──
 const TIMEOUTS = {
-  imageGen: 130000,        // single image generation
+  imageGen: 180000,        // single image generation (bumped from 130s — Fal.ai nano-banana-2 often exceeds 2min)
   videoGen: 620000,        // video generation
   ffmpeg: 60000,           // ffmpeg operations
   driveUpload: 60000,      // Google Drive upload
