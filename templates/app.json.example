@@ -11,7 +11,7 @@
   "voice": "lowercase, casual, genuine. write like a real person, not a brand.",
   "pipelineType": "ai-generated",
   "apiKeyEnv": "DROPSPACE_API_KEY_MYAPP",
-  "slackChannel": "C0YOUR_SLACK_CHANNEL_ID",
+  "notifications": { "channel": "slack", "target": "C0YOUR_SLACK_CHANNEL_ID" },
   "minQueue": 7,
   "platforms": {
     "tiktok": {
