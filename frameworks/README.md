@@ -41,7 +41,7 @@ Clone the repo in a Manus task, set secrets, schedule daily runs. See `framework
 
 ```bash
 # 1. Add MCP server (for supplementary one-off operations)
-claude mcp add dropspace -- npx -y @jclvsh/dropspace-mcp
+claude mcp add dropspace -- npx -y @jclvsh/dropspace
 
 # 2. Install a skill
 curl -sSL https://raw.githubusercontent.com/joshchoi4881/dropspace-agents/main/frameworks/claude-code/ai-content-engine/SKILL.md \

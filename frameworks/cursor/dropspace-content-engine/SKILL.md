@@ -114,7 +114,7 @@ For one-off operations (check analytics, retry a post), add to `.cursor/mcp.json
   "mcpServers": {
     "dropspace": {
       "command": "npx",
-      "args": ["-y", "@jclvsh/dropspace-mcp"],
+      "args": ["-y", "@jclvsh/dropspace"],
       "env": { "DROPSPACE_API_KEY": "ds_live_..." }
     }
   }

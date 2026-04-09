@@ -23,7 +23,7 @@ export DROPSPACE_API_KEY="ds_live_..."  # from dropspace.dev/settings/api
 Base URL: `https://api.dropspace.dev`
 Auth header: `-H "Authorization: Bearer $DROPSPACE_API_KEY"`
 
-Also available as MCP server: `npx @jclvsh/dropspace-mcp`
+Also available as MCP server: `npx @jclvsh/dropspace`
 Machine-readable docs: [llms.txt](https://www.dropspace.dev/llms.txt) | [OpenAPI](https://www.dropspace.dev/openapi.json)
 
 ## API Key Scopes
