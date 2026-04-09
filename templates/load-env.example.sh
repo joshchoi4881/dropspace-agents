@@ -73,6 +73,9 @@ export FAL_KEY="your-fal-key"
 # export BIRD_CT0="..."
 # export X_BEARER_TOKEN="..."
 
+# Slack (script-level report delivery to app channels)
+# export SLACK_BOT_TOKEN="xoxb-..."
+
 # === 1PASSWORD PATTERN (if using op CLI) ===
 # Uncomment and adapt if you use 1Password Service Accounts:
 #

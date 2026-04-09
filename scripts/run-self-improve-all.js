@@ -11,7 +11,8 @@
 
 const { execSync } = require('child_process');
 const path = require('path');
-const { parseArgs } = require('../core/helpers');
+const fs = require('fs');
+const { parseArgs, sendAppReport, loadJSON } = require('../core/helpers');
 const paths = require('../core/paths');
 
 const { getArg, hasFlag } = parseArgs();
@@ -65,6 +66,7 @@ function runPlatform(appName, platform) {
 
 let anyFailed = false;
 
+(async () => {
 for (const app of aiApps) {
   const targetApp = app.name;
   const enabledPlatforms = paths.getEnabledPlatforms(targetApp);
@@ -123,6 +125,32 @@ for (const app of aiApps) {
     anyFailed = true;
   }
   console.log('');
+
+  // ── Slack delivery: queue status per platform ──
+  const slackLines = [`_🧠 Self-Improve — ${targetApp} — ${new Date().toISOString().split('T')[0]}_`];
+  const allPlatforms = [...results.success, ...results.retried, ...results.failed.map(f => f.platform)];
+  for (const plat of enabledPlatforms) {
+    try {
+      const strat = loadJSON(paths.strategyPath(targetApp, plat), {});
+      const qLen = (strat.postQueue || []).length;
+      const appCfg = paths.loadAppConfig(targetApp);
+      const minQ = appCfg?.minQueue || 7;
+      const status = results.failed.some(f => f.platform === plat) ? '❌' : '✅';
+      slackLines.push(`${status} ${plat}: ${qLen} queued (min ${minQ})`);
+    } catch { slackLines.push(`⚠️ ${plat}: unknown`); }
+  }
+  if (results.failed.length > 0) {
+    slackLines.push('');
+    slackLines.push('*Failed:*');
+    for (const f of results.failed) slackLines.push(`• ${f.platform}: ${f.retryError.substring(0, 100)}`);
+  }
+  slackLines.push(`\n_Agent will generate posts for platforms with POSTS_NEEDED above._`);
+  try {
+    await sendAppReport(targetApp, slackLines.join('\n'));
+  } catch (e) {
+    console.error(`⚠️ Slack report failed: ${e.message}`);
+  }
 }
 
 if (anyFailed) process.exitCode = 1;
+})();

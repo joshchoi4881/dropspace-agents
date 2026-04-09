@@ -278,7 +278,7 @@ const TIMEOUTS = {
   driveUpload: 60000,      // Google Drive upload
   driveDownload: 60000,    // Google Drive download
   apiCall: 30000,          // generic API calls (GA4, Sentry)
-  engineExec: 300000,      // engine subprocess (schedule-day calling engines)
+  engineExec: 600000,      // engine subprocess (schedule-day calling engines) — 10min for 6-slide visual posts
   videoEngineExec: 900000, // video engine subprocess
 };
 
@@ -384,4 +384,61 @@ module.exports = {
   resolveEngine,
   withGWSCredentials,
   TIMEOUTS,
+  sendSlack,
+  sendAppReport,
 };
+
+// ── Slack Delivery ──
+
+/**
+ * Post a message to a Slack channel using the bot token.
+ * @param {string} channel - Slack channel ID (e.g. C09N651N44U)
+ * @param {string} text - Message text (Slack mrkdwn)
+ * @returns {Promise<{ok: boolean, ts?: string, error?: string}>}
+ */
+async function sendSlack(channel, text) {
+  const token = process.env.SLACK_BOT_TOKEN;
+  if (!token) {
+    console.error('⚠️ SLACK_BOT_TOKEN not set — skipping Slack delivery');
+    return { ok: false, error: 'no token' };
+  }
+  try {
+    const res = await fetch('https://slack.com/api/chat.postMessage', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ channel, text, unfurl_links: false, unfurl_media: false }),
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      console.error(`⚠️ Slack delivery failed: ${data.error}`);
+    } else {
+      console.log(`📨 Report sent to Slack ${channel}`);
+    }
+    return data;
+  } catch (e) {
+    console.error(`⚠️ Slack delivery error: ${e.message}`);
+    return { ok: false, error: e.message };
+  }
+}
+
+/**
+ * Send a report to an app's configured Slack channel.
+ * Reads slackChannel from app.json.
+ * @param {string} appName - App name (e.g. 'dropspace')
+ * @param {string} text - Report text
+ * @returns {Promise<{ok: boolean}>}
+ */
+async function sendAppReport(appName, text) {
+  const pathsLib = require('./paths');
+  const appConfigPath = pathsLib.appConfigPath(appName);
+  const appConfig = loadJSON(appConfigPath, {});
+  const channel = appConfig?.notifications?.slackChannel || appConfig?.notifications?.target || appConfig?.slackChannel;
+  if (!channel) {
+    console.error(`⚠️ No slackChannel configured for ${appName} — skipping Slack delivery`);
+    return { ok: false, error: 'no channel' };
+  }
+  return sendSlack(channel, text);
+}

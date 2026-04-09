@@ -59,6 +59,11 @@ node scripts/test-pipeline.js --app myapp
 - Used for: x-research cron (trending hooks) AND self-improve fact-checking (verifying claims about recent events/people before posting)
 - Without Bird: x-research is skipped, and fact-checking falls back to web_search only (less current for Twitter-specific topics)
 
+**For Slack notifications (optional):**
+- `SLACK_BOT_TOKEN` — Slack bot token (`xoxb-...`). Scripts send reports directly to each app's configured Slack channel after runs complete.
+- Configure `notifications.slackChannel` in each app's `app.json` with the target channel ID.
+- Without this: scripts still run fine, reports just go to stdout only (cron agent can still relay if configured).
+
 ## App Configuration
 
 All app config is centralized in `~/dropspace/apps/{app}/app.json`.

@@ -12,7 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const { loadJSON, parseArgs, saveJSON, resolveApiKey, isWeekday, toISOSchedule, resolveEngine, TIMEOUTS } = require('../core/helpers');
+const { loadJSON, parseArgs, saveJSON, resolveApiKey, isWeekday, toISOSchedule, resolveEngine, TIMEOUTS, sendAppReport } = require('../core/helpers');
 const paths = require('../core/paths');
 const { checkScheduledExists } = require('../core/api');
 const { PLATFORMS: PLATFORM_DEFS } = require('../core/platforms');
@@ -281,6 +281,20 @@ async function main() {
     for (const e of results.errors) console.log(`  - ${e}`);
   }
   console.log('');
+
+  // ── Slack Delivery ──
+  const slackLines = [`_📅 Schedule Day — ${appName} — ${targetDate}_`];
+  slackLines.push(`✅ ${results.scheduled} scheduled · ⏭ ${results.skipped} skipped · ❌ ${results.failed} failed`);
+  if (results.errors.length > 0) {
+    slackLines.push('');
+    slackLines.push('*Errors:*');
+    for (const e of results.errors) slackLines.push(`• ${e}`);
+  }
+  try {
+    await sendAppReport(appName, slackLines.join('\n'));
+  } catch (e) {
+    console.error(`⚠️ Slack report failed: ${e.message}`);
+  }
 
   // Clean up old scheduled-*.json files (keep last 3 days)
   try {

@@ -590,6 +590,65 @@ async function main() {
 
   // Output
   console.log(JSON.stringify(report, null, 2));
+
+  // ── Slack Delivery ──
+  const { sendAppReport } = require('../core/helpers');
+  const slackLines = [`_🌙 Midnight Report — ${appName} — ${new Date().toISOString().split('T')[0]} (${days}d window)_`];
+
+  // PostHog
+  if (report.posthog) {
+    const ph = report.posthog;
+    slackLines.push(`\n*PostHog:* ${ph.uniqueUsers || 0} users · ${ph.totalPageviews || 0} pageviews`);
+    if (ph.topSources?.length) {
+      slackLines.push(`Top: ${ph.topSources.slice(0, 5).map(s => `${s.source} (${s.count})`).join(', ')}`);
+    }
+  }
+
+  // GA4
+  if (report.ga4) {
+    const g = report.ga4;
+    slackLines.push(`\n*GA4:* ${g.users || 0} users · ${g.sessions || 0} sessions · ${g.pageviews || 0} pageviews`);
+    if (g.topSources?.length) {
+      slackLines.push(`Top: ${g.topSources.slice(0, 5).map(s => `${s.source} (${s.users} users)`).join(', ')}`);
+    }
+  }
+
+  // Signups
+  if (report.newSignups?.length) {
+    slackLines.push(`\n*New signups (${days}d):* ${report.newSignups.length}`);
+  }
+
+  // Stripe
+  if (report.stripe) {
+    slackLines.push(`\n*Stripe (30d):* ${report.stripe.totalCharges || 0} charges · $${((report.stripe.totalRevenue || 0) / 100).toFixed(0)} revenue`);
+  }
+
+  // Pipeline queues
+  if (report.pipelineQueues) {
+    const qs = report.pipelineQueues;
+    const qLines = Object.entries(qs).map(([p, q]) => `${p}: ${q}`).join(' · ');
+    slackLines.push(`\n*Queues:* ${qLines}`);
+  }
+
+  // Completed posts
+  if (report.completedPosts) {
+    const cp = report.completedPosts;
+    const total = Object.values(cp).reduce((a, b) => a + b, 0);
+    const cpLines = Object.entries(cp).map(([p, c]) => `${p} ${c}`).join(' · ');
+    slackLines.push(`\n*Posts (${days}d):* ${total} total — ${cpLines}`);
+  }
+
+  // Health
+  if (report.trackingHealth?.status) {
+    const icon = report.trackingHealth.status === 'CRITICAL' ? '🔴' : '✅';
+    slackLines.push(`\n*Health:* ${icon} ${report.trackingHealth.status}`);
+  }
+
+  try {
+    await sendAppReport(appName, slackLines.join('\n'));
+  } catch (e) {
+    console.error(`⚠️ Slack report failed: ${e.message}`);
+  }
 }
 
 main().catch(e => {

@@ -209,6 +209,14 @@ async function main() {
   // Write to stdout marker for cron consumption
   console.log('\n---JSON---');
   console.log(JSON.stringify(result));
+
+  // ── Slack Delivery ──
+  const { sendAppReport } = require('../core/helpers');
+  try {
+    await sendAppReport(appName, summary);
+  } catch (e) {
+    console.error(`⚠️ Slack report failed: ${e.message}`);
+  }
 }
 
 main().catch(e => {
