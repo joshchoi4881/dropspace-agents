@@ -58,7 +58,18 @@ async function main() {
 
   const results = { scheduled: 0, skipped: 0, failed: 0, errors: [] };
 
-  for (const [platform, platAppConfig] of Object.entries(appConfig.platforms || {})) {
+  // Process text platforms first, visual platforms last.
+  // Visual engines (TikTok/Instagram) generate multiple images via Fal.ai and take
+  // several minutes each. Running them back-to-back can cause timeouts from rate
+  // limiting or memory pressure. Text platforms are fast (~seconds each).
+  const platformEntries = Object.entries(appConfig.platforms || {});
+  const VISUAL_PLATFORMS = new Set(['tiktok', 'instagram']);
+  const sortedEntries = [
+    ...platformEntries.filter(([p]) => !VISUAL_PLATFORMS.has(p)),
+    ...platformEntries.filter(([p]) => VISUAL_PLATFORMS.has(p)),
+  ];
+
+  for (const [platform, platAppConfig] of sortedEntries) {
     if (platAppConfig.enabled === false) {
       console.log(`  ⏭ ${platform}: disabled`);
       continue;

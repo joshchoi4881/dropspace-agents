@@ -278,7 +278,7 @@ const TIMEOUTS = {
   driveUpload: 60000,      // Google Drive upload
   driveDownload: 60000,    // Google Drive download
   apiCall: 30000,          // generic API calls (GA4, Sentry)
-  engineExec: 600000,      // engine subprocess (schedule-day calling engines) — 10min for 6-slide visual posts
+  engineExec: 720000,      // engine subprocess (schedule-day calling engines) — 12min for 6-slide visual posts w/ retries
   videoEngineExec: 900000, // video engine subprocess
 };
 
