@@ -269,9 +269,11 @@ async function main() {
     let appCharges = 0;
     const byProduct = {};
 
+    if (!STRIPE_KEY) console.error('   ⚠️ STRIPE_SECRET_KEY not set — skipping Stripe revenue');
     if (appProductIds.size > 0 && STRIPE_KEY) {
       // Check active subscriptions
       const subs = await stripeAPI(`/subscriptions?status=all&limit=100&created[gte]=${since30d}`, STRIPE_KEY);
+      if (!subs) console.error('   ⚠️ Stripe subscriptions query returned null (API error or timeout)');
       if (subs?.data) {
         for (const sub of subs.data) {
           const subProducts = sub.items?.data?.map(i => i.price?.product) || [];
@@ -294,6 +296,7 @@ async function main() {
       }
     }
 
+    console.error(`   Stripe: ${appCharges} charges, $${appRevenue} revenue (30d)`);
     report.stripe = {
       last30d: {
         totalCharges: appCharges,
