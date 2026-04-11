@@ -283,7 +283,19 @@ async function main() {
           if (invoices?.data) {
             for (const inv of invoices.data) {
               if (inv.created >= since30d) {
-                appRevenue += inv.amount_paid / 100;
+                // Check if the charge was refunded
+                let netAmount = inv.amount_paid;
+                if (inv.charge) {
+                  const charge = await stripeAPI(`/charges/${inv.charge}`, STRIPE_KEY);
+                  if (charge?.refunded) {
+                    console.error(`   ⏭ Skipping refunded invoice ${inv.id} ($${inv.amount_paid / 100})`);
+                    continue;
+                  }
+                  if (charge?.amount_refunded > 0) {
+                    netAmount = inv.amount_paid - charge.amount_refunded;
+                  }
+                }
+                appRevenue += netAmount / 100;
                 appCharges++;
                 const prodName = subProducts.find(p => appProductIds.has(p)) || 'unknown';
                 if (!byProduct[prodName]) byProduct[prodName] = { count: 0, revenue: 0 };
