@@ -282,7 +282,7 @@ async function main() {
           const invoices = await stripeAPI(`/invoices?subscription=${sub.id}&status=paid&limit=10`, STRIPE_KEY);
           if (invoices?.data) {
             for (const inv of invoices.data) {
-              if (inv.created >= since30d) {
+              if (inv.created >= since30d && inv.amount_paid > 0) {
                 // Check if the charge was refunded
                 let netAmount = inv.amount_paid;
                 if (inv.charge) {
@@ -640,7 +640,7 @@ async function main() {
   // Stripe
   if (report.stripe?.last30d) {
     const s = report.stripe.last30d;
-    slackLines.push(`\n*Stripe (30d):* ${s.totalCharges || 0} charges · $${((s.totalRevenue || 0) / 100).toFixed(0)} revenue`);
+    slackLines.push(`\n*Stripe (30d):* ${s.totalCharges || 0} charges · $${(s.totalRevenue || 0).toFixed(0)} revenue`);
   }
 
   // Pipeline queues
