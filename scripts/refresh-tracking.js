@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Refresh TRACKING.md for any app — pulls analytics from Dropspace API
- * and writes a performance report at ~/dropspace/apps/<app>/TRACKING.md.
+ * and writes a performance report at ~/markus/apps/<app>/TRACKING.md.
  *
  * Usage:
  *   node refresh-tracking.js --app <APP>
@@ -9,8 +9,8 @@
  *   node refresh-tracking.js --all          # refresh all apps
  *
  * Output:
- *   ~/dropspace/apps/<app>/TRACKING.md   — human-readable report
- *   ~/dropspace/apps/<app>/tracking.json — machine-readable (consumed by self-improve-engine)
+ *   ~/markus/apps/<app>/TRACKING.md   — human-readable report
+ *   ~/markus/apps/<app>/tracking.json — machine-readable (consumed by self-improve-engine)
  */
 
 const fs = require('fs');

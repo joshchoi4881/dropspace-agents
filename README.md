@@ -12,8 +12,8 @@ Platform-specific behavior is defined in `platforms.js` (config registry) and `a
 
 ```bash
 # 1. Clone and install
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents
+git clone https://github.com/joshchoi4881/markus.git
+cd markus
 npm install
 
 # canvas is optional — only needed for visual formats (TikTok/Instagram slideshows).
@@ -66,9 +66,9 @@ node scripts/test-pipeline.js --app myapp
 
 ## App Configuration
 
-All app config is centralized in `~/dropspace/apps/{app}/app.json`.
+All app config is centralized in `~/markus/apps/{app}/app.json`.
 
-> **Custom data directory:** Set `APPS_DATA_ROOT` to override the default `~/dropspace/apps/` location. All scripts use this for path resolution.
+> **Custom data directory:** Set `APPS_DATA_ROOT` to override the default `~/markus/apps/` location. All scripts use this for path resolution.
 
 Example:
 
@@ -97,7 +97,7 @@ Key fields:
 ## Layout
 
 ```
-~/dropspace/apps/
+~/markus/apps/
 ├── dropspace/                             # App: Dropspace (ai-generated)
 │   ├── app.json                           # App identity + integrations + platform config
 │   ├── shared-failures.json               # Cross-platform directive failure rules
@@ -124,7 +124,7 @@ Key fields:
 ## Scripts
 
 ```
-~/dropspace/private/
+~/markus/private/
 ├── core/
 │   ├── paths.js                   # Single source of truth for all path resolution
 │   ├── platforms.js               # Platform config registry (replaces 27 wrapper scripts)
@@ -207,10 +207,10 @@ Ongoing   Analytics cron         → Detects post deletions → post.deleted web
 
 ```bash
 # 1. Scaffold
-node ~/dropspace/private/scripts/init-app.js --app myapp --platforms tiktok,instagram,twitter
+node ~/markus/private/scripts/init-app.js --app myapp --platforms tiktok,instagram,twitter
 
 # 2. Configure
-vim ~/dropspace/apps/myapp/app.json  # Fill in: pipelineType, notifications, skipDays, integrations, posting times
+vim ~/markus/apps/myapp/app.json  # Fill in: pipelineType, notifications, skipDays, integrations, posting times
 
 # 3. Add crons (stagger times so they don't overlap with existing apps)
 ```

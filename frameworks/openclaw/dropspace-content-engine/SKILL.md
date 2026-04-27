@@ -2,7 +2,7 @@
 name: dropspace-content-engine
 description: "Self-improving autonomous content pipeline. Analyzes post performance across 6 platforms, generates new content with AI (slideshows, tweets, linkedin posts, reddit threads), schedules via Dropspace API. Gets smarter every night — each cycle learns from real engagement data. Use when asked to set up autonomous content posting, run the content engine, or manage multi-platform social media automation."
 homepage: https://www.dropspace.dev/community/dropspace-content-engine
-source: https://github.com/joshchoi4881/dropspace-agents
+source: https://github.com/joshchoi4881/markus
 metadata:
   {
     "openclaw":
@@ -10,7 +10,7 @@ metadata:
         "emoji": "🔄",
         "requires": {
           "env": ["DROPSPACE_API_KEY", "ANTHROPIC_API_KEY", "FAL_KEY"],
-          "install": "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install"
+          "install": "git clone https://github.com/joshchoi4881/markus && cd markus && npm install"
         }
       }
   }
@@ -25,7 +25,7 @@ Fully autonomous content pipeline. Every night: pull analytics → identify winn
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus && cd markus && npm install
 ```
 
 If `canvas` fails to install, that's fine — text-only formats still work. For visual formats (TikTok/Instagram slideshows): macOS `brew install pkg-config cairo pango`, Linux `apt install libcairo2-dev libpango1.0-dev`, then `npm install` again.
@@ -98,5 +98,5 @@ node scripts/schedule-day.js --app myapp
 
 - Community page: https://www.dropspace.dev/community/dropspace-content-engine
 - Case study: https://www.dropspace.dev/case-studies/march-2026
-- Repo: https://github.com/joshchoi4881/dropspace-agents
+- Repo: https://github.com/joshchoi4881/markus
 - Dropspace API docs: https://www.dropspace.dev/docs

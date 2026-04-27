@@ -30,7 +30,7 @@ source ${SKILL_DIR}/load-env.sh
 node ${SKILL_DIR}/scripts/refresh-tracking.js --all
 node ${SKILL_DIR}/scripts/cleanup-posts.js --all
 
-Then for each app in ~/dropspace/apps/ that has an app.json:
+Then for each app in ~/markus/apps/ that has an app.json:
   Read pipelineType from app.json.
   Run: node ${SKILL_DIR}/scripts/midnight-report.js --app <name> --days 7
   Send the report to the app's notification channel (read notifications.channel and notifications.target from app.json, use the message tool).
@@ -59,7 +59,7 @@ Your final response is the condensed summary across all apps.`,
 
 source ${SKILL_DIR}/load-env.sh
 
-For each app in ~/dropspace/apps/ that has xResearch config in app.json:
+For each app in ~/markus/apps/ that has xResearch config in app.json:
   node ${SKILL_DIR}/scripts/run-x-research.js --app <name>
   Send report to app's notification channel.`,
     note: 'Requires Bird CLI or X API bearer token. Skip if you don\'t use X research.',
@@ -111,7 +111,7 @@ Send per-app reports to each app's notification channel.`,
 
 source ${SKILL_DIR}/load-env.sh
 
-For each app in ~/dropspace/apps/ with app.json:
+For each app in ~/markus/apps/ with app.json:
   Read pipelineType.
   If ai-generated: node ${SKILL_DIR}/scripts/schedule-day.js --app <name>
   If manual: node ${SKILL_DIR}/scripts/daily-schedule-report.js --app <name>

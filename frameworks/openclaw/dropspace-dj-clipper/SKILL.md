@@ -2,7 +2,7 @@
 name: dropspace-dj-clipper
 description: "Turn DJ sets and long music recordings into short-form TikTok/Instagram clips. Analyzes audio for energy peaks and transitions, cuts 30-second vertical clips, identifies songs via Whisper-based timestamping, generates captions with artist credits, schedules across platforms via Dropspace API. Use when asked to clip DJ sets, extract highlights from long recordings, or automate music content."
 homepage: https://www.dropspace.dev/community/dropspace-dj-clipper
-source: https://github.com/joshchoi4881/dropspace-agents
+source: https://github.com/joshchoi4881/markus
 metadata:
   {
     "openclaw":
@@ -10,7 +10,7 @@ metadata:
         "emoji": "🎧",
         "requires": {
           "env": ["DROPSPACE_API_KEY", "ANTHROPIC_API_KEY"],
-          "install": "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install",
+          "install": "git clone https://github.com/joshchoi4881/markus && cd markus && npm install",
           "system": ["ffmpeg"]
         }
       }
@@ -26,7 +26,7 @@ Turn long DJ sets and music performances into short-form clips. Analyzes audio f
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus && cd markus && npm install
 ```
 
 ### 2. Run the setup wizard
@@ -93,4 +93,4 @@ node scripts/schedule-day.js --app myapp
 
 - Community page: https://www.dropspace.dev/community/dropspace-dj-clipper
 - Case study: https://www.dropspace.dev/case-studies/march-2026
-- Repo: https://github.com/joshchoi4881/dropspace-agents
+- Repo: https://github.com/joshchoi4881/markus

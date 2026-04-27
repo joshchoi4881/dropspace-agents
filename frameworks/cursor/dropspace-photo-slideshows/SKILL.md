@@ -4,7 +4,7 @@ globs: []
 alwaysApply: false
 requires:
   env: [DROPSPACE_API_KEY]
-  install: "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install"
+  install: "git clone https://github.com/joshchoi4881/markus && cd markus && npm install"
   system: [ffmpeg]
 ---
 
@@ -17,8 +17,8 @@ Turn event photos from Google Drive into TikTok/Instagram slideshows with commun
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 ```
 
 If `canvas` fails, install system deps first: macOS `brew install pkg-config cairo pango`, Linux `apt install libcairo2-dev libpango1.0-dev`.

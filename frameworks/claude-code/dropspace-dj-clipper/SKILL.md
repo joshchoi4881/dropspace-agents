@@ -2,10 +2,10 @@
 name: dropspace-dj-clipper
 description: "Extract short clips from DJ set recordings and schedule to TikTok/Instagram via Dropspace. Uses ffmpeg for audio analysis and video cropping. Use when asked to clip DJ sets, extract video highlights, or create short-form music content."
 homepage: https://www.dropspace.dev/community/dropspace-dj-clipper
-source: https://github.com/joshchoi4881/dropspace-agents
+source: https://github.com/joshchoi4881/markus
 requires:
   env: [DROPSPACE_API_KEY]
-  install: "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install"
+  install: "git clone https://github.com/joshchoi4881/markus && cd markus && npm install"
   system: [ffmpeg]
 ---
 
@@ -18,8 +18,8 @@ Extract 30-60 second transition clips from DJ set recordings. Auto-detect energy
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 ```
 
 ### 2. Install ffmpeg

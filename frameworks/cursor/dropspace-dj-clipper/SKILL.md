@@ -4,7 +4,7 @@ globs: []
 alwaysApply: false
 requires:
   env: [DROPSPACE_API_KEY]
-  install: "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install"
+  install: "git clone https://github.com/joshchoi4881/markus && cd markus && npm install"
   system: [ffmpeg]
 ---
 
@@ -17,8 +17,8 @@ Extract 30-60 second transition clips from DJ set recordings. Auto-detect energy
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 brew install ffmpeg    # macOS (or apt-get install ffmpeg on Linux)
 ```
 

@@ -5,24 +5,24 @@
  * Single source of truth — change the layout here, everything follows.
  *
  * Layout:
- *   ~/dropspace/apps/{app}/{platform}/              — per-platform data
- *   ~/dropspace/apps/{app}/app.json                 — app config
- *   ~/dropspace/apps/{app}/shared-failures.json
- *   ~/dropspace/apps/{app}/insights.json            — cross-platform strategy notes
- *   ~/dropspace/apps/{app}/x-research-signals.json
- *   ~/dropspace/apps/{app}/reports/                 — cross-platform analysis reports
- *   ~/dropspace/apps/cache/                         — shared API response cache
+ *   ~/markus/apps/{app}/{platform}/              — per-platform data
+ *   ~/markus/apps/{app}/app.json                 — app config
+ *   ~/markus/apps/{app}/shared-failures.json
+ *   ~/markus/apps/{app}/insights.json            — cross-platform strategy notes
+ *   ~/markus/apps/{app}/x-research-signals.json
+ *   ~/markus/apps/{app}/reports/                 — cross-platform analysis reports
+ *   ~/markus/apps/cache/                         — shared API response cache
  */
 
 const path = require('path');
 const fs = require('fs');
 
 const HOME = process.env.HOME || '';
-const DATA_ROOT = process.env.APPS_DATA_ROOT || path.join(HOME, 'dropspace', 'apps');
+const DATA_ROOT = process.env.APPS_DATA_ROOT || path.join(HOME, 'markus', 'apps');
 
 /**
  * Root directory for an app's data.
- * e.g. ~/dropspace/apps/dropspace/
+ * e.g. ~/markus/apps/dropspace/
  */
 function appRoot(appName) {
   return path.join(DATA_ROOT, appName);
@@ -30,7 +30,7 @@ function appRoot(appName) {
 
 /**
  * Per-platform data directory.
- * e.g. ~/dropspace/apps/dropspace/tiktok/
+ * e.g. ~/markus/apps/dropspace/tiktok/
  */
 function platformDir(appName, platform) {
   return path.join(DATA_ROOT, appName, platform);
@@ -38,7 +38,7 @@ function platformDir(appName, platform) {
 
 /**
  * App config file.
- * e.g. ~/dropspace/apps/dropspace/app.json
+ * e.g. ~/markus/apps/dropspace/app.json
  */
 function appConfigPath(appName) {
   return path.join(appRoot(appName), 'app.json');
@@ -57,7 +57,7 @@ function loadAppConfig(appName) {
 
 /**
  * Shared failures file for an app.
- * e.g. ~/dropspace/apps/dropspace/shared-failures.json
+ * e.g. ~/markus/apps/dropspace/shared-failures.json
  */
 function sharedFailuresPath(appName) {
   return path.join(appRoot(appName), 'shared-failures.json');
@@ -65,7 +65,7 @@ function sharedFailuresPath(appName) {
 
 /**
  * Cross-platform strategy insights for an app.
- * e.g. ~/dropspace/apps/dropspace/insights.json
+ * e.g. ~/markus/apps/dropspace/insights.json
  */
 function insightsPath(appName) {
   return path.join(appRoot(appName), 'insights.json');
@@ -73,7 +73,7 @@ function insightsPath(appName) {
 
 /**
  * X research signals file for an app.
- * e.g. ~/dropspace/apps/dropspace/x-research-signals.json
+ * e.g. ~/markus/apps/dropspace/x-research-signals.json
  */
 function xResearchSignalsPath(appName) {
   return path.join(appRoot(appName), 'x-research-signals.json');
@@ -81,7 +81,7 @@ function xResearchSignalsPath(appName) {
 
 /**
  * Cross-platform reports directory for an app.
- * e.g. ~/dropspace/apps/dropspace/reports/
+ * e.g. ~/markus/apps/dropspace/reports/
  */
 function reportsDir(appName) {
   return path.join(appRoot(appName), 'reports');
@@ -89,7 +89,7 @@ function reportsDir(appName) {
 
 /**
  * Shared cache directory.
- * e.g. ~/dropspace/apps/cache/
+ * e.g. ~/markus/apps/cache/
  */
 function cacheDir() {
   return path.join(DATA_ROOT, 'cache');
@@ -97,7 +97,7 @@ function cacheDir() {
 
 /**
  * Self-improve cache path for an app.
- * e.g. ~/dropspace/apps/cache/self-improve-dropspace-14d.json
+ * e.g. ~/markus/apps/cache/self-improve-dropspace-14d.json
  */
 function selfImproveCachePath(appName, days) {
   return path.join(cacheDir(), `self-improve-${appName}-${days}d.json`);
@@ -105,8 +105,8 @@ function selfImproveCachePath(appName, days) {
 
 /**
  * X research snapshot directory for an app.
- * e.g. ~/dropspace/apps/dropspace/tiktok/research/  (platform-specific)
- * or ~/dropspace/apps/dropspace/research/             (app-level)
+ * e.g. ~/markus/apps/dropspace/tiktok/research/  (platform-specific)
+ * or ~/markus/apps/dropspace/research/             (app-level)
  */
 function researchDir(appName, platform) {
   if (platform) return path.join(platformDir(appName, platform), 'research');
@@ -115,7 +115,7 @@ function researchDir(appName, platform) {
 
 /**
  * Strategy.json for a platform.
- * e.g. ~/dropspace/apps/dropspace/tiktok/strategy.json
+ * e.g. ~/markus/apps/dropspace/tiktok/strategy.json
  */
 function strategyPath(appName, platform) {
   return path.join(platformDir(appName, platform), 'strategy.json');

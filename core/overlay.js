@@ -21,7 +21,7 @@ let fontRegistered = false;
 // ── Canvas initialization ──────────────────────────────────────
 
 const CANVAS_SEARCH_PATHS = [
-  path.join(process.env.HOME || '', 'dropspace', 'node_modules', 'canvas'),
+  path.join(process.env.HOME || '', 'markus', 'node_modules', 'canvas'),
   'canvas',
 ];
 
@@ -50,7 +50,7 @@ function initCanvas() {
     try { canvasModule = require(cp); break; } catch {}
   }
   if (!canvasModule) {
-    throw new Error('node-canvas not installed. Install via: cd ~/dropspace && npm install canvas');
+    throw new Error('node-canvas not installed. Install via: cd ~/markus && npm install canvas');
   }
 
   const { registerFont } = canvasModule;

@@ -7,7 +7,7 @@ Read this file before executing any cron task. These rules are non-negotiable.
 When a script fails or produces an incorrect result:
 
 1. **Read the error** — understand the stack trace or output
-2. **Read the script source** — find the bug (`~/dropspace/private/`)
+2. **Read the script source** — find the bug (`~/markus/private/`)
 3. **Fix the script** — make the minimal edit to fix the bug
 4. **Log the fix** — append to the app's `failures.json`:
    ```json
@@ -42,7 +42,7 @@ The goal: each run should leave the system better than it found it.
 
 ## Multi-App Architecture
 
-The pipeline supports multiple apps, each discovered from `~/dropspace/apps/`. Each app has:
+The pipeline supports multiple apps, each discovered from `~/markus/apps/`. Each app has:
 - `app.json` — identity, integrations, platform config, posting times, notifications, skipDays
 - `pipelineType` — either `ai-generated` (self-improve + AI engines) or `manual` (pre-built launches, schedule only)
 
@@ -69,9 +69,9 @@ The cron agent checks upstream dependencies inline before running each stage. Se
 
 ## Data Layout
 
-All automation data lives under `~/dropspace/apps/{app}/`:
+All automation data lives under `~/markus/apps/{app}/`:
 ```
-~/dropspace/apps/{app}/
+~/markus/apps/{app}/
 ├── app.json                  # App config (identity, integrations, platform posting times, notifications, skipDays)
 ├── TRACKING.md               # Auto-refreshed post performance dashboard (all platforms)
 ├── shared-failures.json      # Cross-platform failure rules
@@ -201,9 +201,9 @@ export SUPABASE_ACCESS_TOKEN="$(op read 'op://your-vault/SUPABASE_ACCESS_TOKEN/p
 
 ## Path Rules
 
-- Data: `~/dropspace/apps/{app}/{platform}/` (resolved via `paths.js`)
-- App config: `~/dropspace/apps/{app}/app.json`
-- Shared code: `~/dropspace/private/`
+- Data: `~/markus/apps/{app}/{platform}/` (resolved via `paths.js`)
+- App config: `~/markus/apps/{app}/app.json`
+- Shared code: `~/markus/private/`
 - Always pass `--app <name> --platform <platform>`. Paths resolve via `paths.js`.
 
 ## Deleting Bad Posts
@@ -232,7 +232,7 @@ When you see a `POSTS_NEEDED` block:
 5. Save posts AND notes in one command via `add-posts.js` (NEVER edit strategy.json directly):
    ```bash
    echo '{"posts":[...], "notes":"Your strategy notes...", "crossNotes":"Insights for other platforms..."}' | \
-     node ~/dropspace/private/scripts/add-posts.js --app dropspace --platform tiktok
+     node ~/markus/private/scripts/add-posts.js --app dropspace --platform tiktok
    ```
 
 **Post blueprint structure:**
@@ -326,12 +326,12 @@ Notes are saved atomically with posts via stdin JSON to `add-posts.js`. No separ
 Pass a JSON object via stdin with posts, notes, crossNotes, and failures:
 ```bash
 echo '{"posts":[...], "notes":"Your strategic reasoning...", "crossNotes":"Insights for other platforms...", "failures":["rule1","rule2"]}' | \
-  node ~/dropspace/private/scripts/add-posts.js --app dropspace --platform tiktok
+  node ~/markus/private/scripts/add-posts.js --app dropspace --platform tiktok
 ```
 
 - **posts**: Array of post objects (required, can be empty `[]` if only saving notes)
 - **notes**: Your strategic reasoning for THIS platform. Persists across runs — tomorrow's LLM reads it as `previousNotes` in POSTS_NEEDED. Write what matters: patterns, experiments, what to remember next run.
-- **crossNotes**: Insights relevant to OTHER platforms. Shared across all 6 platforms via `~/dropspace/apps/{app}/insights.json`. E.g. "contrarian angles getting 3x engagement" or "photorealistic outperforming illustration."
+- **crossNotes**: Insights relevant to OTHER platforms. Shared across all 6 platforms via `~/markus/apps/{app}/insights.json`. E.g. "contrarian angles getting 3x engagement" or "photorealistic outperforming illustration."
 - **failures**: Array of failure rule strings to append to `{platform}/failures.json`. Use for directive rules only — correlations.js handles data-driven failure detection automatically.
 
 **Experiment commands** in notes are processed BEFORE posts are added. If your notes include `KILL_EXPERIMENT: text-single-v1`, the format is killed before posts are filtered — any text-single posts in the same batch will be rejected.

@@ -8,7 +8,7 @@
  * Reads app.json integrations config to determine which sources to pull from.
  * Currently supports: GitHub, Supabase, PostHog, Stripe, Sentry, GA4, Dropspace API.
  *
- * Writes to: ~/dropspace/apps/<app>/config/<project>/CONTEXT.md
+ * Writes to: ~/markus/apps/<app>/config/<project>/CONTEXT.md
  */
 
 const fs = require('fs');
@@ -259,7 +259,7 @@ async function main() {
   md += '\n';
 
   // Preserve any manual sections from existing CONTEXT.md
-  const outDir = path.join(HOME, 'dropspace', 'apps', appName, 'config', project);
+  const outDir = path.join(HOME, 'markus', 'apps', appName, 'config', project);
   const outPath = path.join(outDir, 'CONTEXT.md');
 
   if (fs.existsSync(outPath)) {

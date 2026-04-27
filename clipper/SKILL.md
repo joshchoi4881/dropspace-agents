@@ -202,7 +202,7 @@ Samples audio every 30 seconds, transcribes with Whisper, matches lyrics to know
 ```bash
 node ~/.openclaw/skills/clipper/scripts/clip-transitions.js \
   --input source.mp4 --tracklist tracklist-timestamps.json \
-  --output-dir ~/dropspace/apps/<APP>/clips/event-name \
+  --output-dir ~/markus/apps/<APP>/clips/event-name \
   --duration 30 --extra-peaks 5 --min-gap 45
 ```
 
@@ -232,7 +232,7 @@ Clips exist in three places that MUST stay in sync: **local files**, **Google Dr
    }
    ```
 4. Update `clips-manifest.json` if any IDs or timestamps changed
-5. Update the event's `CONTEXT.md` (e.g. `~/dropspace/apps/<APP>/config/{event}/CONTEXT.md`) — clip table must reflect current timestamps
+5. Update the event's `CONTEXT.md` (e.g. `~/markus/apps/<APP>/config/{event}/CONTEXT.md`) — clip table must reflect current timestamps
 
 **Dropspace PATCH supports** (per [docs](https://www.dropspace.dev/docs)): `media` (replace assets via URL or base64), `media_assets`, `media_attach_platforms`, `media_mode`, `platform_contents`, `scheduled_date`, and more. `media` and `media_assets` are mutually exclusive. Use PATCH to update in place — **no need to delete + recreate** just to swap media.
 
@@ -256,7 +256,7 @@ The name is **`{event} {number}`** where `{event}` = the clips subfolder name (l
 
 - No prefixes ("clip-", "clip_"), no hyphens in the event name. Just `{event} {number}`.
 - Numbering is continuous across batches. If clips 01-03 already posted, new clips start at 04.
-- The clips folder path determines the event name: `~/dropspace/apps/<APP>/clips/{event}/` → name = `{event}`.
+- The clips folder path determines the event name: `~/markus/apps/<APP>/clips/{event}/` → name = `{event}`.
 
 **Renaming local files:** Never do sequential `mv` renames (e.g. clip01→04 overwrites existing clip04). Use a temp dir or re-cut from source with correct names.
 
@@ -320,18 +320,18 @@ All content follows this structure. **Never upload clips to Drive root.**
 CLIPS_FOLDER=$(node -e "const a=require('$HOME/apps/<APP>/app.json');console.log(a.contentSources.clipper.events['<event-name>'].clipsFolder)")
 
 # Upload with correct parent
-gws drive files create --params '{"name":"nook 01.mp4","parents":["'$CLIPS_FOLDER'"],"supportsAllDrives":true}' --upload ~/dropspace/apps/<APP>/clips/nook/nook\ 01.mp4
+gws drive files create --params '{"name":"nook 01.mp4","parents":["'$CLIPS_FOLDER'"],"supportsAllDrives":true}' --upload ~/markus/apps/<APP>/clips/nook/nook\ 01.mp4
 ```
 
 ## Dependencies
 
 - `ffmpeg` / `ffprobe` — `~/bin/` (video only)
 - `gws` CLI — Google Drive access
-- `node-canvas` — `~/dropspace/node_modules/canvas` (image resize + overlays)
+- `node-canvas` — `~/markus/node_modules/canvas` (image resize + overlays)
 - 1Password — credentials for Drive + Dropspace
 
 ## Data Paths
 
-- `~/dropspace/apps/{app}/sources/inventory.json` — Drive file index
-- `~/dropspace/apps/{app}/{platform}/strategy.json` — post queue
+- `~/markus/apps/{app}/sources/inventory.json` — Drive file index
+- `~/markus/apps/{app}/{platform}/strategy.json` — post queue
 - `~/.cache/clipper/` — temp working dir (source downloads, cleaned after)

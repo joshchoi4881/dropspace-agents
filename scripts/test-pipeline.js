@@ -46,20 +46,10 @@ function check(label, fn) {
 
 async function main() {
   console.log(`\n🧪 Pipeline Validation — ${appName}`);
-  console.log('   Checks: env vars → app.json → API keys → platform connections → queue\n');
+  console.log('   Checks: app.json → API keys → platform connections → queue\n');
 
-  // ── Step 1: Verify env vars ──
-  console.log('1. Checking environment variables...');
-
-  check('ANTHROPIC_API_KEY is set', () => {
-    if (!process.env.ANTHROPIC_API_KEY) {
-      throw new Error('Not set. Run: source ~/dropspace/private/load-env.sh');
-    }
-    return `sk-ant-...${process.env.ANTHROPIC_API_KEY.slice(-4)}`;
-  });
-
-  // ── Step 2: Verify app.json ──
-  console.log('\n2. Checking app.json...');
+  // ── Step 1: Verify app.json ──
+  console.log('1. Checking app.json...');
 
   const appConfigPath = pathsLib.appConfigPath(appName);
   let config = null;
@@ -89,8 +79,8 @@ async function main() {
       return `ds_live_...${key.slice(-4)}`;
     });
 
-    // ── Step 3: Verify Dropspace API key ──
-    console.log('\n3. Verifying Dropspace API connection...');
+    // ── Step 2: Verify Dropspace API key ──
+    console.log('\n2. Verifying Dropspace API connection...');
 
     const apiKey = process.env[apiKeyEnv];
     if (apiKey && apiKey !== 'paste-key-here') {
@@ -118,7 +108,7 @@ async function main() {
 
     if (enabledPlatforms.length > 0 && config.pipelineType === 'ai-generated') {
       const firstPlatform = enabledPlatforms[0];
-      console.log(`\n4. Running self-improve dry-run (${firstPlatform})...`);
+      console.log(`\n3. Running self-improve dry-run (${firstPlatform})...`);
       console.log('   (This shows what the LLM will see — no posts generated)\n');
 
       const selfImproveScript = path.join(SKILL_DIR, 'engines', 'self-improve-engine.js');
@@ -139,14 +129,14 @@ async function main() {
         });
       }
     } else if (config.pipelineType === 'manual') {
-      console.log('\n4. Skipping self-improve dry-run (manual pipeline)');
+      console.log('\n3. Skipping self-improve dry-run (manual pipeline)');
       passed++;
     } else {
-      console.log('\n4. Skipping self-improve dry-run (no enabled platforms)');
+      console.log('\n3. Skipping self-improve dry-run (no enabled platforms)');
     }
 
-    // ── Step 5: Show queue depths ──
-    console.log('\n5. Queue depths:\n');
+    // ── Step 4: Show queue depths ──
+    console.log('\n4. Queue depths:\n');
 
     for (const platform of enabledPlatforms) {
       try {

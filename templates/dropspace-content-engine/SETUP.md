@@ -76,7 +76,7 @@ node setup.js --template dropspace-content-engine
 
 The setup wizard will:
 1. Ask for your API keys
-2. Create your app directory at `~/dropspace/apps/{your-app}/`
+2. Create your app directory at `~/markus/apps/{your-app}/`
 3. Generate `app.json` with your product details and platform config
 4. Create voice guidelines and content context files
 5. Optionally set up cron jobs for automated posting
@@ -96,7 +96,7 @@ node scripts/schedule-day.js --app yourapp
 
 ### Custom Data Directory
 
-By default, all app data lives at `~/dropspace/apps/`. Set `APPS_DATA_ROOT` to use a different location:
+By default, all app data lives at `~/markus/apps/`. Set `APPS_DATA_ROOT` to use a different location:
 ```bash
 export APPS_DATA_ROOT="/path/to/your/apps"
 ```

@@ -2,15 +2,15 @@
 
 Self-improving content pipeline for Dropspace. Runs in Manus cloud sandbox with built-in scheduling.
 
-**Requires:** `DROPSPACE_API_KEY`, `ANTHROPIC_API_KEY`, `FAL_KEY` (set in Manus Settings > Environment). Installs from [github.com/joshchoi4881/dropspace-agents](https://github.com/joshchoi4881/dropspace-agents).
+**Requires:** `DROPSPACE_API_KEY`, `ANTHROPIC_API_KEY`, `FAL_KEY` (set in Manus Settings > Environment). Installs from [github.com/joshchoi4881/markus](https://github.com/joshchoi4881/markus).
 
 ## Setup
 
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 ```
 
 ### 2. Set API keys as Manus secrets

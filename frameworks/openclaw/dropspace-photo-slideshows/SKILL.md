@@ -2,7 +2,7 @@
 name: dropspace-photo-slideshows
 description: "Turn event photos into daily TikTok/Instagram slideshows. Downloads photos from Google Drive, resizes for mobile, assembles slideshows with face-aware text overlays, generates captions in a configurable community voice, schedules one post per day via Dropspace API. Use when asked to automate event photo posting, create slideshows from Google Drive, or schedule photo content."
 homepage: https://www.dropspace.dev/community/dropspace-photo-slideshows
-source: https://github.com/joshchoi4881/dropspace-agents
+source: https://github.com/joshchoi4881/markus
 metadata:
   {
     "openclaw":
@@ -10,7 +10,7 @@ metadata:
         "emoji": "📸",
         "requires": {
           "env": ["DROPSPACE_API_KEY"],
-          "install": "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install",
+          "install": "git clone https://github.com/joshchoi4881/markus && cd markus && npm install",
           "system": ["ffmpeg"]
         }
       }
@@ -26,7 +26,7 @@ Turn event photos from Google Drive into daily TikTok/Instagram slideshows. Uplo
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus && cd markus && npm install
 ```
 
 For image processing: macOS `brew install pkg-config cairo pango`, Linux `apt install libcairo2-dev libpango1.0-dev`, then `npm install` again.
@@ -101,4 +101,4 @@ Requires ffmpeg for image resizing (`~/bin/ffmpeg` or system install).
 
 - Community page: https://www.dropspace.dev/community/dropspace-photo-slideshows
 - Case study: https://www.dropspace.dev/case-studies/march-2026
-- Repo: https://github.com/joshchoi4881/dropspace-agents
+- Repo: https://github.com/joshchoi4881/markus

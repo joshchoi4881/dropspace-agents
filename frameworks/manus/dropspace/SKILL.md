@@ -2,7 +2,7 @@
 name: dropspace
 description: Create and publish social media launches via the Dropspace API. Use when user wants to post to social media, create launches, manage personas, track post analytics, schedule content, or anything Dropspace-related. Supports 10 platforms (Twitter, LinkedIn, Reddit, Instagram, TikTok, Facebook, YouTube, Substack, Product Hunt, Hacker News) with per-post analytics and AI content generation.
 homepage: https://www.dropspace.dev/docs
-source: https://github.com/joshchoi4881/dropspace-agents
+source: https://github.com/joshchoi4881/markus
 requires:
   env: [DROPSPACE_API_KEY]
 ---
@@ -442,4 +442,4 @@ For the full automation pipeline (self-improving content engine, DJ clipper, pho
 - **dropspace-content-engine** — autonomous content generation + scheduling
 - **dropspace-dj-clipper** — long recordings → short-form clips
 - **dropspace-photo-slideshows** — event photos → daily TikTok slideshows
-- Repo: https://github.com/joshchoi4881/dropspace-agents
+- Repo: https://github.com/joshchoi4881/markus

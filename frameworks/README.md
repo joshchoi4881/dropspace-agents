@@ -28,8 +28,8 @@ Run the Dropspace content pipeline in your preferred AI agent framework. The scr
 
 ```bash
 # Uses the root SKILL.md + setup wizard
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 node setup.js --template dropspace-content-engine
 ```
 
@@ -44,7 +44,7 @@ Clone the repo in a Manus task, set secrets, schedule daily runs. See `framework
 claude mcp add dropspace -- npx -y @jclvsh/dropspace
 
 # 2. Install a skill
-curl -sSL https://raw.githubusercontent.com/joshchoi4881/dropspace-agents/main/frameworks/claude-code/ai-content-engine/SKILL.md \
+curl -sSL https://raw.githubusercontent.com/joshchoi4881/markus/main/frameworks/claude-code/ai-content-engine/SKILL.md \
   -o ~/.claude/skills/dropspace-content-engine/SKILL.md --create-dirs
 
 # 3. Use it — type /dropspace-content-engine in Claude Code
@@ -55,12 +55,12 @@ curl -sSL https://raw.githubusercontent.com/joshchoi4881/dropspace-agents/main/f
 
 ```bash
 # 1. Clone and run the pipeline
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 node scripts/init-app.js --app myapp --platforms tiktok,twitter,linkedin
 
 # 2. Copy the rules file (optional — for agent-requested activation)
-curl -sSL https://raw.githubusercontent.com/joshchoi4881/dropspace-agents/main/frameworks/cursor/ai-content-engine/SKILL.md \
+curl -sSL https://raw.githubusercontent.com/joshchoi4881/markus/main/frameworks/cursor/ai-content-engine/SKILL.md \
   -o .cursor/rules/dropspace-content-engine.mdc --create-dirs
 
 # 3. Enable YOLO mode + allowlist "node scripts/*" for auto-approval

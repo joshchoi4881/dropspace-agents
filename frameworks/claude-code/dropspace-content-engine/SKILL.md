@@ -2,10 +2,10 @@
 name: dropspace-content-engine
 description: "Self-improving content pipeline for Dropspace. Analyzes post performance, generates new content across 6 platforms, schedules publishing, and compounds strategy over time. Run nightly for best results. Use when asked to run the content engine, generate social posts, or manage the content pipeline."
 homepage: https://www.dropspace.dev/community/dropspace-content-engine
-source: https://github.com/joshchoi4881/dropspace-agents
+source: https://github.com/joshchoi4881/markus
 requires:
   env: [DROPSPACE_API_KEY, ANTHROPIC_API_KEY, FAL_KEY]
-  install: "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install"
+  install: "git clone https://github.com/joshchoi4881/markus && cd markus && npm install"
 ---
 
 # AI Content Engine
@@ -17,8 +17,8 @@ Self-improving content pipeline. Run two scripts nightly — posts get smarter o
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 ```
 
 If `canvas` fails to install, that's fine — text-only formats still work. For visual formats (TikTok/Instagram slideshows), install the system dependencies first: macOS `brew install pkg-config cairo pango`, Linux `apt install libcairo2-dev libpango1.0-dev`.
@@ -94,10 +94,10 @@ Set up system crons to run the full nightly cycle (replace paths and app name):
 crontab -e
 
 # Full nightly schedule (all times ET):
-0  0 * * * cd /path/to/dropspace-agents && source .env && node scripts/refresh-tracking.js --app myapp && node scripts/cleanup-posts.js --app myapp --days 7 >> /tmp/dropspace-cron.log 2>&1
-30 0 * * * cd /path/to/dropspace-agents && source .env && node scripts/run-x-research.js --app myapp >> /tmp/dropspace-cron.log 2>&1
-0  1 * * * cd /path/to/dropspace-agents && source .env && node scripts/run-self-improve-all.js --app myapp >> /tmp/dropspace-cron.log 2>&1
-0  2 * * * cd /path/to/dropspace-agents && source .env && node scripts/schedule-day.js --app myapp >> /tmp/dropspace-cron.log 2>&1
+0  0 * * * cd /path/to/markus && source .env && node scripts/refresh-tracking.js --app myapp && node scripts/cleanup-posts.js --app myapp --days 7 >> /tmp/dropspace-cron.log 2>&1
+30 0 * * * cd /path/to/markus && source .env && node scripts/run-x-research.js --app myapp >> /tmp/dropspace-cron.log 2>&1
+0  1 * * * cd /path/to/markus && source .env && node scripts/run-self-improve-all.js --app myapp >> /tmp/dropspace-cron.log 2>&1
+0  2 * * * cd /path/to/markus && source .env && node scripts/schedule-day.js --app myapp >> /tmp/dropspace-cron.log 2>&1
 ```
 
 | Time | Script | What it does |

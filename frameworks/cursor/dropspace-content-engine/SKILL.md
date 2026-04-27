@@ -4,7 +4,7 @@ globs: []
 alwaysApply: false
 requires:
   env: [DROPSPACE_API_KEY, ANTHROPIC_API_KEY, FAL_KEY]
-  install: "git clone https://github.com/joshchoi4881/dropspace-agents && cd dropspace-agents && npm install"
+  install: "git clone https://github.com/joshchoi4881/markus && cd markus && npm install"
 ---
 
 # AI Content Engine
@@ -16,8 +16,8 @@ Self-improving content pipeline. Run two scripts nightly — posts get smarter o
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 ```
 
 If `canvas` fails, that's fine — text-only formats still work. For visual formats: macOS `brew install pkg-config cairo pango`, Linux `apt install libcairo2-dev libpango1.0-dev`.
@@ -99,10 +99,10 @@ Cursor Background Agents run in a cloud sandbox. Create a Background Agent that 
 ```bash
 crontab -e
 # Full nightly schedule (replace paths and app name):
-0  0 * * * cd /path/to/dropspace-agents && source .env && node scripts/refresh-tracking.js --app myapp && node scripts/cleanup-posts.js --app myapp --days 7 >> /tmp/dropspace-cron.log 2>&1
-30 0 * * * cd /path/to/dropspace-agents && source .env && node scripts/run-x-research.js --app myapp >> /tmp/dropspace-cron.log 2>&1
-0  1 * * * cd /path/to/dropspace-agents && source .env && node scripts/run-self-improve-all.js --app myapp >> /tmp/dropspace-cron.log 2>&1
-0  2 * * * cd /path/to/dropspace-agents && source .env && node scripts/schedule-day.js --app myapp >> /tmp/dropspace-cron.log 2>&1
+0  0 * * * cd /path/to/markus && source .env && node scripts/refresh-tracking.js --app myapp && node scripts/cleanup-posts.js --app myapp --days 7 >> /tmp/dropspace-cron.log 2>&1
+30 0 * * * cd /path/to/markus && source .env && node scripts/run-x-research.js --app myapp >> /tmp/dropspace-cron.log 2>&1
+0  1 * * * cd /path/to/markus && source .env && node scripts/run-self-improve-all.js --app myapp >> /tmp/dropspace-cron.log 2>&1
+0  2 * * * cd /path/to/markus && source .env && node scripts/schedule-day.js --app myapp >> /tmp/dropspace-cron.log 2>&1
 ```
 
 ## MCP Server (optional)

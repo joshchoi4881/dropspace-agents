@@ -2,13 +2,13 @@
 
 Turn event photos into TikTok/Instagram slideshows via Dropspace. Runs in Manus cloud sandbox.
 
-**Requires:** `DROPSPACE_API_KEY` (set in Manus Settings > Environment), `ffmpeg`. Installs from [github.com/joshchoi4881/dropspace-agents](https://github.com/joshchoi4881/dropspace-agents).
+**Requires:** `DROPSPACE_API_KEY` (set in Manus Settings > Environment), `ffmpeg`. Installs from [github.com/joshchoi4881/markus](https://github.com/joshchoi4881/markus).
 
 ## Setup
 
 ```bash
-git clone https://github.com/joshchoi4881/dropspace-agents.git
-cd dropspace-agents && npm install
+git clone https://github.com/joshchoi4881/markus.git
+cd markus && npm install
 
 node scripts/init-app.js --app myapp --platforms tiktok,instagram
 ```
@@ -29,7 +29,7 @@ node scripts/schedule-day.js --app myapp
 ## Schedule with Manus
 
 Set up a Scheduled Task (Manus Settings > Scheduled Tasks) — daily or weekly:
-- `cd dropspace-agents && node clipper/scripts/create-slideshows.js --app myapp && node scripts/schedule-day.js --app myapp`
+- `cd markus && node clipper/scripts/create-slideshows.js --app myapp && node scripts/schedule-day.js --app myapp`
 
 ## Manus Caveats
 
